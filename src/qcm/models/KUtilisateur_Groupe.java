@@ -1,6 +1,5 @@
 package qcm.models;
 
-import net.ko.kobject.KObject;
 import net.ko.persistence.annotation.Entity;
 import net.ko.persistence.annotation.Id;
 import net.ko.persistence.annotation.Table;
@@ -11,7 +10,7 @@ import net.ko.persistence.annotation.Table;
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "utilisateur_groupe")
-public class KUtilisateur_Groupe extends KObject {
+public class KUtilisateur_Groupe extends KRestObject {
 	@Id
 	private int idGroupe;
 	@Id

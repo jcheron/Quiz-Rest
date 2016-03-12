@@ -3,7 +3,6 @@ package qcm.models;
 import com.google.gson.annotations.Expose;
 
 import net.ko.kobject.KListObject;
-import net.ko.kobject.KObject;
 import net.ko.persistence.annotation.Entity;
 import net.ko.persistence.annotation.Table;
 
@@ -13,7 +12,7 @@ import net.ko.persistence.annotation.Table;
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "questionnaire")
-public class KQuestionnaire extends KObject {
+public class KQuestionnaire extends KRestObject {
 	@Expose
 	private java.sql.Date date;
 	@Expose
@@ -155,4 +154,5 @@ public class KQuestionnaire extends KObject {
 	public void setGroupes(KListObject<KGroupe> groupes) {
 		this.groupes = groupes;
 	}
+
 }

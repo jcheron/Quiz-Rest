@@ -1,7 +1,6 @@
 package qcm.models;
 
 import net.ko.kobject.KListObject;
-import net.ko.kobject.KObject;
 import net.ko.persistence.annotation.Entity;
 import net.ko.persistence.annotation.Table;
 
@@ -11,7 +10,7 @@ import net.ko.persistence.annotation.Table;
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "reponse")
-public class KReponse extends KObject {
+public class KReponse extends KRestObject {
 	private boolean good;
 	private int idQuestion;
 	private String libelle;

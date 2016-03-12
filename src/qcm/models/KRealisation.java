@@ -3,7 +3,6 @@ package qcm.models;
 import com.google.gson.annotations.Expose;
 
 import net.ko.kobject.KListObject;
-import net.ko.kobject.KObject;
 import net.ko.persistence.annotation.Entity;
 import net.ko.persistence.annotation.Table;
 
@@ -13,7 +12,7 @@ import net.ko.persistence.annotation.Table;
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "realisation")
-public class KRealisation extends KObject {
+public class KRealisation extends KRestObject {
 	@Expose
 	private java.sql.Date date;
 	private int idQuestionnaire;
