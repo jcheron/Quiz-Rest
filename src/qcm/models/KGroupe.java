@@ -17,7 +17,9 @@ public class KGroupe extends KRestObject {
 	private String code;
 	@Expose
 	private String libelle;
+	@Expose
 	private KListObject<KQuestionnaire> questionnaires;
+	@Expose
 	private KListObject<KUtilisateur> utilisateurs;
 
 	public KGroupe() {

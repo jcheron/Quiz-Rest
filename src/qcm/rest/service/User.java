@@ -25,14 +25,6 @@ public class User extends CrudRestBase {
 		displayName = "utilisateur";
 	}
 
-	@Override
-	public String getAll() {
-		Ko.setTempConstraintDeph(2);
-		String result = super.getAll();
-		Ko.restoreConstraintDeph();
-		return result;
-	}
-
 	@GET
 	@Path("/{id}/groupes")
 	@Produces(MediaType.APPLICATION_JSON)
