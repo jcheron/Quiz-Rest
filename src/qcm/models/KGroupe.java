@@ -3,7 +3,6 @@ package qcm.models;
 import com.google.gson.annotations.Expose;
 
 import net.ko.kobject.KListObject;
-import net.ko.kobject.KObject;
 import net.ko.persistence.annotation.Entity;
 import net.ko.persistence.annotation.Table;
 
@@ -13,7 +12,7 @@ import net.ko.persistence.annotation.Table;
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "groupe")
-public class KGroupe extends KObject {
+public class KGroupe extends KRestObject {
 	@Expose
 	private String code;
 	@Expose
