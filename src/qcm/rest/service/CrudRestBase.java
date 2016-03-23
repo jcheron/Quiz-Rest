@@ -118,7 +118,7 @@ public abstract class CrudRestBase extends RestBase {
 	}
 
 	/**
-	 * Create a object
+	 * Create an object
 	 * 
 	 * @return String message
 	 */
@@ -140,7 +140,7 @@ public abstract class CrudRestBase extends RestBase {
 	}
 
 	/**
-	 * Delete a object
+	 * Delete an object
 	 * 
 	 * @return String message
 	 */
