@@ -13,6 +13,7 @@ import net.ko.persistence.annotation.Table;
 @Entity
 @Table(name = "utilisateur")
 public class KUtilisateur extends KRestObject {
+	@Expose
 	private int idRang;
 	@Expose
 	private String login;
@@ -20,7 +21,9 @@ public class KUtilisateur extends KRestObject {
 	private String mail;
 	@Expose
 	private String nom;
+	@Expose
 	private String password;
+	@Expose
 	private String prenom;
 	@Expose
 	private KRang rang;

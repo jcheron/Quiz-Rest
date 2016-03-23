@@ -7,6 +7,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -36,7 +37,11 @@ public abstract class CrudRestBase extends RestBase {
 		obj.setAttributes(formParams, new Function<String, String>() {
 			@Override
 			public String apply(String t) {
-				return t.replaceFirst("^\\[(.*)\\]$", "$1");
+				String result = null;
+				if (t != null) {
+					result = t.replaceFirst("^\\[(.*)\\]$", "$1");
+				}
+				return result;
 			}
 		}, false);
 	}
@@ -122,7 +127,7 @@ public abstract class CrudRestBase extends RestBase {
 	 * 
 	 * @return String message
 	 */
-	@POST
+	@PUT
 	@Path("add")
 	@Consumes("application/x-www-form-urlencoded")
 	public String add(MultivaluedMap<String, String> formParams) {
