@@ -33,8 +33,7 @@ public abstract class CrudRestBase extends RestBase {
 	 * @throws NoSuchFieldException
 	 * @throws IllegalAccessException
 	 */
-	protected void setValuesToKObject(KObject obj, MultivaluedMap<String, String> formParams)
-			throws SecurityException, IllegalAccessException {
+	protected void setValuesToKObject(KObject obj, MultivaluedMap<String, String> formParams) throws SecurityException, IllegalAccessException {
 		obj.setAttributes(formParams, new Function<String, String>() {
 			@Override
 			public String apply(String t) {
@@ -76,8 +75,7 @@ public abstract class CrudRestBase extends RestBase {
 	@GET
 	@Path("/limit/{offset}/{limit}/{cd}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String getAllLimitOffest(@PathParam("offset") Integer offset, @PathParam("limit") Integer limit,
-			@PathParam("cd") Integer constraintDepht) {
+	public String getAllLimitOffest(@PathParam("offset") Integer offset, @PathParam("limit") Integer limit, @PathParam("cd") Integer constraintDepht) {
 		if (constraintDepht != null)
 			Ko.setTempConstraintDeph(constraintDepht);
 		KListObject<? extends KObject> objects = KoSession.kloadMany(kobjectClass, "1=1 LIMIT " + offset + "," + limit);
@@ -104,10 +102,16 @@ public abstract class CrudRestBase extends RestBase {
 	}
 
 	@GET
-	@Path("/limit/{limit}")
+	@Path("/count")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getcount() {
-		return "10";
+		String result = null;
+		try {
+			result = String.valueOf(KoSession.count(kobjectClass));
+		} catch (SQLException e) {
+			result = null;
+		}
+		return result;
 	}
 
 	@GET
@@ -153,8 +157,7 @@ public abstract class CrudRestBase extends RestBase {
 		try {
 			setValuesToKObject(object, formParams);
 			KoSession.update(object);
-			message = returnValue(KString.capitalizeFirstLetter(displayName) + " `" + object + "` mis à jour",
-					displayName, object);
+			message = returnValue(KString.capitalizeFirstLetter(displayName) + " `" + object + "` mis à jour", displayName, object);
 		} catch (SecurityException | IllegalAccessException | SQLException e) {
 			message = returnMessage(e.getMessage(), true);
 		}
@@ -176,8 +179,7 @@ public abstract class CrudRestBase extends RestBase {
 			object = kobjectClass.newInstance();
 			setValuesToKObject(object, formParams);
 			KoSession.add(object);
-			message = returnValue(KString.capitalizeFirstLetter(displayName) + " `" + object + "` inséré", displayName,
-					object);
+			message = returnValue(KString.capitalizeFirstLetter(displayName) + " `" + object + "` inséré", displayName, object);
 		} catch (SecurityException | IllegalAccessException | SQLException | InstantiationException e) {
 			message = returnMessage(e.getMessage(), true);
 		}
@@ -199,8 +201,7 @@ public abstract class CrudRestBase extends RestBase {
 			return returnMessage("L'objet d'id `" + id + "` n'existe pas", true);
 		try {
 			KoSession.delete(object);
-			message = returnValue(KString.capitalizeFirstLetter(displayName) + " `" + object + "` supprimé",
-					displayName, object);
+			message = returnValue(KString.capitalizeFirstLetter(displayName) + " `" + object + "` supprimé", displayName, object);
 		} catch (SQLException e) {
 			message = returnMessage(e.getMessage(), true);
 		}
@@ -210,8 +211,7 @@ public abstract class CrudRestBase extends RestBase {
 	@GET
 	@Path("/{id}/one/{member}/{cd}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String getMember(@PathParam("id") int id, @PathParam("member") String member,
-			@PathParam("cd") Integer constraintDepht) {
+	public String getMember(@PathParam("id") int id, @PathParam("member") String member, @PathParam("cd") Integer constraintDepht) {
 		KObject object = loadOne(id, constraintDepht);
 		String message = "";
 		if (!object.isLoaded())
@@ -235,8 +235,7 @@ public abstract class CrudRestBase extends RestBase {
 	@GET
 	@Path("/{id}/all/{member}/{cd}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String getListMember(@PathParam("id") int id, @PathParam("member") String member,
-			@PathParam("cd") Integer constraintDepht) {
+	public String getListMember(@PathParam("id") int id, @PathParam("member") String member, @PathParam("cd") Integer constraintDepht) {
 		if (constraintDepht != null)
 			Ko.setTempConstraintDeph(constraintDepht);
 		KObject object = KoSession.kloadOne(kobjectClass, id);
