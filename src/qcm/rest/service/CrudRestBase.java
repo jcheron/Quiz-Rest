@@ -107,7 +107,13 @@ public abstract class CrudRestBase extends RestBase {
 	@Path("/count/{limit}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getcount() {
-		return "10";
+		String result = null;
+		try {
+			result = String.valueOf(KoSession.count(kobjectClass));
+		} catch (SQLException e) {
+			result = null;
+		}
+		return result;
 	}
 
 	@GET
