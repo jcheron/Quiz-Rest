@@ -157,6 +157,7 @@ public abstract class CrudRestBase extends RestBase {
 		try {
 			setValuesToKObject(object, formParams);
 			KoSession.update(object);
+			context.setAttribute(kobjectClass.getName(), System.currentTimeMillis());
 			message = returnValue(KString.capitalizeFirstLetter(displayName) + " `" + object + "` mis à jour", displayName, object);
 		} catch (SecurityException | IllegalAccessException | SQLException e) {
 			message = returnMessage(e.getMessage(), true);
@@ -179,6 +180,7 @@ public abstract class CrudRestBase extends RestBase {
 			object = kobjectClass.newInstance();
 			setValuesToKObject(object, formParams);
 			KoSession.add(object);
+			context.setAttribute(kobjectClass.getName(), System.currentTimeMillis());
 			message = returnValue(KString.capitalizeFirstLetter(displayName) + " `" + object + "` inséré", displayName, object);
 		} catch (SecurityException | IllegalAccessException | SQLException | InstantiationException e) {
 			message = returnMessage(e.getMessage(), true);
@@ -201,6 +203,7 @@ public abstract class CrudRestBase extends RestBase {
 			return returnMessage("L'objet d'id `" + id + "` n'existe pas", true);
 		try {
 			KoSession.delete(object);
+			context.setAttribute(kobjectClass.getName(), System.currentTimeMillis());
 			message = returnValue(KString.capitalizeFirstLetter(displayName) + " `" + object + "` supprimé", displayName, object);
 		} catch (SQLException e) {
 			message = returnMessage(e.getMessage(), true);
@@ -265,5 +268,19 @@ public abstract class CrudRestBase extends RestBase {
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getListMember(@PathParam("id") int id, @PathParam("member") String member) {
 		return getListMember(id, member, null);
+	}
+
+	@GET
+	@Path("/updated/{timestamp}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String isUpdated(@PathParam("timestamp") long timestamp) {
+		long contextTimestamp = timestamp - 1;
+
+		if (context.getAttribute(kobjectClass.getSimpleName()) != null)
+			contextTimestamp = (long) this.context.getAttribute(kobjectClass.getName());
+
+		if (contextTimestamp > timestamp)
+			return "true";
+		return "false";
 	}
 }

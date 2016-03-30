@@ -1,5 +1,7 @@
 package qcm.models;
 
+import com.google.gson.annotations.Expose;
+
 import net.ko.kobject.KListObject;
 import net.ko.persistence.annotation.Entity;
 import net.ko.persistence.annotation.Table;
@@ -11,15 +13,19 @@ import net.ko.persistence.annotation.Table;
 @Entity
 @Table(name = "reponse")
 public class KReponse extends KRestObject {
+	@Expose
 	private boolean good;
 	private int idQuestion;
+	@Expose
 	private String libelle;
+	@Expose
 	private KQuestion question;
 	private KListObject<KReponse_utilisateur> reponse_utilisateurs;
 
 	public KReponse() {
 		super();
-		// hasMany(KReponse_utilisateur.class);belongsTo(KQuestion.class);
+		// hasMany(KReponse_utilisateur.class);
+		belongsTo(KQuestion.class);
 	}
 
 	/**
