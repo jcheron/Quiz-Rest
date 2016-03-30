@@ -276,7 +276,7 @@ public abstract class CrudRestBase extends RestBase {
 	public String isUpdated(@PathParam("timestamp") long timestamp) {
 		long contextTimestamp = timestamp - 1;
 
-		if (context.getAttribute(kobjectClass.getSimpleName()) != null)
+		if (context.getAttribute(kobjectClass.getName()) != null)
 			contextTimestamp = (long) this.context.getAttribute(kobjectClass.getName());
 
 		if (contextTimestamp > timestamp)
