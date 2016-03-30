@@ -102,7 +102,7 @@ public abstract class CrudRestBase extends RestBase {
 	}
 
 	@GET
-	@Path("/count")
+	@Path("/count/{limit}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getcount() {
 		String result = null;
