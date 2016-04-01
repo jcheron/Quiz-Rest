@@ -78,4 +78,13 @@ public class User extends CrudRestBase {
 		}
 		return result;
 	}
+
+	@GET
+	@Path("/disconnect")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String disconnect() {
+		request.getSession().removeAttribute("token");
+		request.getSession().invalidate();
+		return "true";
+	}
 }
