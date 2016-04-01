@@ -19,6 +19,7 @@ import net.ko.framework.KoSession;
 import net.ko.kobject.KListObject;
 import net.ko.kobject.KObject;
 import net.ko.utils.KString;
+import qcm.rest.service.filter.Secured;
 
 public abstract class CrudRestBase extends RestBase {
 	protected Class<? extends KObject> kobjectClass;
@@ -115,6 +116,7 @@ public abstract class CrudRestBase extends RestBase {
 	}
 
 	@GET
+	@Secured
 	@Path("/all")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getAll() {

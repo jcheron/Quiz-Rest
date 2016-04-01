@@ -1,6 +1,7 @@
 package qcm.rest.service;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.Context;
 
 import com.google.gson.Gson;
@@ -15,6 +16,9 @@ public abstract class RestBase {
 	protected Gson gson;
 	@Context
 	protected ServletContext context;
+
+	@Context
+	protected HttpServletRequest request;
 
 	public RestBase() {
 		GsonBuilder gsonBuilder = new GsonBuilder();

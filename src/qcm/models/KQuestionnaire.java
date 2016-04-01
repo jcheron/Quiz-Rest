@@ -21,15 +21,22 @@ public class KQuestionnaire extends KRestObject {
 	private String libelle;
 	@Expose
 	private KDomaine domaine;
+	@Expose
+	private int idUtilisateur;
+	@Expose
+	private KUtilisateur utilisateur;
+
 	private KListObject<KGroupe> groupes;
 	@Expose
 	private KListObject<KQuestion> questions;
+
 	private KListObject<KRealisation> realisations;
 
 	public KQuestionnaire() {
 		super();
 		hasMany(KRealisation.class);
 		belongsTo(KDomaine.class);
+		belongsTo(KUtilisateur.class);
 		hasMany(KQuestion.class);
 		hasAndBelongsToMany(KGroupe_questionnaire.class, KGroupe.class);
 	}

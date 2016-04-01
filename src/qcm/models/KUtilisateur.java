@@ -28,8 +28,12 @@ public class KUtilisateur extends KRestObject {
 	@Expose
 	private KRang rang;
 	@Expose
+	private transient String token;
+	@Expose
 	private KListObject<KRealisation> realisations;
 
+	@Expose
+	private KListObject<KQuestionnaire> questionnaires;
 	@Expose
 	private KListObject<KGroupe> groupes;
 
@@ -39,6 +43,7 @@ public class KUtilisateur extends KRestObject {
 		belongsTo(KRang.class);
 		hasAndBelongsToMany(KUtilisateur_Groupe.class, KGroupe.class);
 		hasMany(KRealisation.class);
+		hasMany(KQuestionnaire.class);
 		// hasAndBelongsToMany("groupes", KGroupe.class,
 		// KUtilisateur_Groupe.class, "id", "groupe", "id", "idUtilisateur",
 		// "idGroupe");

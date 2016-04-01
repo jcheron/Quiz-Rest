@@ -64,12 +64,16 @@ public class User extends CrudRestBase {
 	@Consumes("application/x-www-form-urlencoded")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String connect(@FormParam("login") String login, @FormParam("password") String password) {
+		Ko.setTempConstraintDeph(2);
 		KUtilisateur user = KoSession.kloadOne(KUtilisateur.class, "login='" + login + "'");
+		Ko.restoreConstraintDeph();
 		String result = returnMessage("Login ou mot de passe invalides", true);
 
 		if (user.isLoaded()) {
 			if (user.getPassword().equals(password)) {
-				result = returnValue("Connexion réussie de " + user, "utilisateur", user, "\"connected\":true");
+				String token = new SessionIdGenerator().nextSessionId();
+				result = returnValue("Connexion réussie de " + user, "utilisateur", user, "\"connected\":true,\"token\":\"" + token + "\"");
+				request.getSession().setAttribute("token", token);
 			}
 		}
 		return result;
