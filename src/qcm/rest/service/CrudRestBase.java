@@ -61,6 +61,7 @@ public abstract class CrudRestBase extends RestBase {
 	}
 
 	@GET
+	@Secured
 	@Path("/all/{cd}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getAll(@PathParam("cd") Integer constraintDepht) {
@@ -74,6 +75,7 @@ public abstract class CrudRestBase extends RestBase {
 	}
 
 	@GET
+	@Secured
 	@Path("/limit/{offset}/{limit}/{cd}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getAllLimitOffest(@PathParam("offset") Integer offset, @PathParam("limit") Integer limit, @PathParam("cd") Integer constraintDepht) {
@@ -87,6 +89,7 @@ public abstract class CrudRestBase extends RestBase {
 	}
 
 	@GET
+	@Secured
 	@Path("/limit/{offset}/{limit}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getAllLimitOffest(@PathParam("offset") Integer offset, @PathParam("limit") Integer limit) {
@@ -96,6 +99,7 @@ public abstract class CrudRestBase extends RestBase {
 	}
 
 	@GET
+	@Secured
 	@Path("/limit/{limit}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getAllLimit(@PathParam("limit") Integer limit) {
@@ -124,6 +128,7 @@ public abstract class CrudRestBase extends RestBase {
 	}
 
 	@GET
+	@Secured
 	@Path("/{id}/{cd}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getOne(@PathParam("id") int id, @PathParam("cd") Integer constraintDepht) {
@@ -137,6 +142,7 @@ public abstract class CrudRestBase extends RestBase {
 	}
 
 	@GET
+	@Secured
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getOne(@PathParam("id") int id) {
@@ -149,6 +155,7 @@ public abstract class CrudRestBase extends RestBase {
 	 * @return String message
 	 */
 	@POST
+	@Secured
 	@Path("/update/{id}")
 	@Consumes("application/x-www-form-urlencoded")
 	public String update(MultivaluedMap<String, String> formParams, @PathParam("id") int id) throws SQLException {
@@ -173,6 +180,7 @@ public abstract class CrudRestBase extends RestBase {
 	 * @return String message
 	 */
 	@PUT
+	@Secured
 	@Path("add")
 	@Consumes("application/x-www-form-urlencoded")
 	public String add(MultivaluedMap<String, String> formParams) {
@@ -196,6 +204,7 @@ public abstract class CrudRestBase extends RestBase {
 	 * @return String message
 	 */
 	@DELETE
+	@Secured
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/{id}")
 	public String delete(@PathParam("id") int id) {
@@ -214,6 +223,7 @@ public abstract class CrudRestBase extends RestBase {
 	}
 
 	@GET
+	@Secured
 	@Path("/{id}/one/{member}/{cd}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getMember(@PathParam("id") int id, @PathParam("member") String member, @PathParam("cd") Integer constraintDepht) {
@@ -230,6 +240,7 @@ public abstract class CrudRestBase extends RestBase {
 	}
 
 	@GET
+	@Secured
 	@Path("/{id}/one/{member}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getMember(@PathParam("id") int id, @PathParam("member") String member) {
@@ -238,6 +249,7 @@ public abstract class CrudRestBase extends RestBase {
 
 	@SuppressWarnings("unchecked")
 	@GET
+	@Secured
 	@Path("/{id}/all/{member}/{cd}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getListMember(@PathParam("id") int id, @PathParam("member") String member, @PathParam("cd") Integer constraintDepht) {
@@ -266,6 +278,7 @@ public abstract class CrudRestBase extends RestBase {
 	}
 
 	@GET
+	@Secured
 	@Path("/{id}/all/{member}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getListMember(@PathParam("id") int id, @PathParam("member") String member) {

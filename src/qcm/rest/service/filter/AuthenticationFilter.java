@@ -8,6 +8,7 @@ import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.Priorities;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.Provider;
@@ -18,6 +19,9 @@ import net.ko.framework.Ko;
 @Provider
 @Priority(Priorities.AUTHENTICATION)
 public class AuthenticationFilter implements ContainerRequestFilter {
+
+	@Context
+	private HttpServletRequest httpRequest;
 
 	@Override
 	public void filter(ContainerRequestContext requestContext) throws IOException {
@@ -33,6 +37,8 @@ public class AuthenticationFilter implements ContainerRequestFilter {
 
 			// Extract the token from the HTTP Authorization header
 			String token = authorizationHeader.substring("Bearer".length()).trim();
+			if (token != null)
+				token = token.replace("\"", "");
 
 			try {
 				validateToken(token, requestContext);
@@ -43,8 +49,7 @@ public class AuthenticationFilter implements ContainerRequestFilter {
 	}
 
 	private void validateToken(String token, ContainerRequestContext context) throws Exception {
-		HttpServletRequest request = (HttpServletRequest) context.getRequest();
-		String sessionToken = String.valueOf(request.getSession().getAttribute("token"));
+		String sessionToken = String.valueOf(httpRequest.getSession().getAttribute("token"));
 		if (sessionToken == null || !token.equals(sessionToken))
 			throw new Exception("Invalid token");
 	}
