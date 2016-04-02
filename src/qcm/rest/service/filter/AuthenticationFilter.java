@@ -41,14 +41,14 @@ public class AuthenticationFilter implements ContainerRequestFilter {
 				token = token.replace("\"", "");
 
 			try {
-				validateToken(token, requestContext);
+				validateToken(token);
 			} catch (Exception e) {
 				requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).build());
 			}
 		}
 	}
 
-	private void validateToken(String token, ContainerRequestContext context) throws Exception {
+	private void validateToken(String token) throws Exception {
 		String sessionToken = String.valueOf(httpRequest.getSession().getAttribute("token"));
 		if (sessionToken == null || !token.equals(sessionToken))
 			throw new Exception("Invalid token");
